@@ -2,12 +2,12 @@
 import style from "./style.module.scss";
 
 // -- atoms
-import CryptoItem from "presentation/component/molecules/CryptoItem";
+import CryptoItem from "@molecules/CryptoItem";
 
 const Cryptocurrencies = (props) => {
-	const { data } = props;
+	const { ready, data, error } = props;
 
-	if (!props.ready) {
+	if (!ready) {
 		return (
 			<div className="container">
 				<p className="">Sedang dimuat</p>
@@ -15,7 +15,7 @@ const Cryptocurrencies = (props) => {
 		);
 	}
 
-	if (props.error) {
+	if (error) {
 		return (
 			<div className="container">
 				<h2>{props.error.message}</h2>

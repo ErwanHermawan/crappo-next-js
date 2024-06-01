@@ -1,31 +1,52 @@
-// -- core
 import { useEffect, useState } from "react";
 
 // -- api
-import httpRequest from "@api/httpRequest";
 import ENDPOINT from "@api/endPoint";
+import httpRequest from "@api/httpRequest";
 
 // -- organisms
-import Statistics from "presentation/component/organisms/Statistics";
+import Statistics from "@organisms/Statistics";
 
-const StatisticsWidget = () => {
-	// state
-	const [data, setData] = useState([]);
+const WhyCrappoWidget = () => {
+	const [callStatisticsData, setCallStatisticsData] = useState(false);
+	const [statisticsData, setStatisticsData] = useState(null);
 
-	// call API
-	const { data: getData } = httpRequest({
-		url: ENDPOINT.STATISTICS,
-		method: "get",
-	});
+	const handleScroll = () => {
+		const scrollTop =
+			window.pageYOffset ||
+			document.documentElement.scrollTop ||
+			document.body.scrollTop;
+		const numbers = document.getElementById("numbers");
+		const startScroll = numbers.offsetTop + numbers.clientHeight / 2;
 
-	// use effect
-	useEffect(() => {
-		if (getData?.data) {
-			setData(getData?.data);
+		if (scrollTop > startScroll && !callStatisticsData) {
+			setCallStatisticsData(true);
 		}
-	}, [getData]);
+	};
 
-	return <Statistics data={data} />;
+	const handleStatisticsData = async () => {
+		const { data, error } = await httpRequest({
+			method: "get",
+			url: ENDPOINT.STATISTICS,
+		});
+		setStatisticsData(data.data);
+	};
+
+	useEffect(() => {
+		if (callStatisticsData) {
+			handleStatisticsData();
+		}
+	}, [callStatisticsData]);
+
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		// Cleanup event listener on component unmount
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	return <Statistics ready={true} data={statisticsData} />;
 };
 
-export default StatisticsWidget;
+export default WhyCrappoWidget;

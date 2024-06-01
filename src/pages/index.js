@@ -6,6 +6,13 @@ import Home from "@modules/Home";
 
 // -- SSR getStaticProps
 const getStaticProps = async () => {
+	// header
+	const { data: headerData, error: headerError } = await httpRequest({
+		method: "get",
+		url: ENDPOINT.HEADER,
+	});
+
+	// banner
 	const { data: heroBannerData, error: heroBannerError } = await httpRequest({
 		method: "get",
 		url: ENDPOINT.HERO_BANNER,
@@ -34,14 +41,38 @@ const getStaticProps = async () => {
 		],
 	});
 
+	// numbers
+	const { data: numbersData, error: numbersError } = await httpRequest({
+		method: "get",
+		url: ENDPOINT.NUMBERS,
+	});
+
+	// why crappo
+	const { data: whyCrappoData, error: whyCrappoError } = await httpRequest({
+		method: "get",
+		url: ENDPOINT.WHY_CRAPPO,
+	});
+
 	return {
 		props: {
-			heroBanner: {
-				data: JSON.stringify(heroBannerData, null, 0),
-				error: JSON.stringify(heroBannerError, null, 0),
+			header: {
+				data: JSON.stringify(headerData, null, 2),
+				error: JSON.stringify(headerError, null, 2),
 			},
-			revalidate: 10, //Opsional, ISR: revalidate data at most 10 seconds
+			heroBanner: {
+				data: JSON.stringify(heroBannerData, null, 2),
+				error: JSON.stringify(heroBannerError, null, 2),
+			},
+			numbers: {
+				data: JSON.stringify(numbersData, null, 2),
+				error: JSON.stringify(numbersError, null, 2),
+			},
+			whyCrappo: {
+				data: JSON.stringify(whyCrappoData, null, 2),
+				error: JSON.stringify(whyCrappoError, null, 2),
+			},
 		},
+		revalidate: 10, //Opsional, ISR: revalidate data at most 10 seconds
 	};
 };
 

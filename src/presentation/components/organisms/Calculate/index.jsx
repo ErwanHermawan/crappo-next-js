@@ -1,12 +1,14 @@
 // -- style
-import FormControl from "presentation/component/atoms/FormControl";
+import FormControl from "@atoms/FormControl";
 import style from "./style.module.scss";
 
 // -- atoms
-import Button from "presentation/component/atoms/Button";
+import Button from "@atoms/Button";
 
 const Calculate = (props) => {
-	if (!props.ready) {
+	const { ready, data, error } = props;
+
+	if (!ready) {
 		return (
 			<section className="sc-placeholder">
 				<div className="container">
@@ -14,10 +16,6 @@ const Calculate = (props) => {
 				</div>
 			</section>
 		);
-	}
-
-	if (props.error !== null) {
-		return <h2>{props.error.message}</h2>;
 	}
 
 	const optionData = [
@@ -39,7 +37,7 @@ const Calculate = (props) => {
 		},
 	];
 	return (
-		<div className={style.calculate}>
+		<div className={style.calculate} id="calculate">
 			<div className="container">
 				<div className={style.head}>
 					<h2 className={style.title}>Check how much you can earn</h2>

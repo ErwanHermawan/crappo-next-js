@@ -8,19 +8,30 @@ import Default from "@templates/Default";
 import useStateHeader from "@states/header";
 
 // -- widgets
-// import HeroBannerWidget from "@widgets/HeroBannerWidget";
-import NumbersWidget from "@widgets/NumbersWidget";
-import WhyCrappoWidget from "@widgets/WhyCrappoWidget";
+import CalculateWidget from "@widgets/CalculateWidget";
 import SubsribeWidget from "@widgets/SubscribeWidget";
+import CryptocurrenciesWidget from "@widgets/CryptocurrenciesWidget";
+import InvestSmartWidget from "@widgets/InvestSmartWidget";
+import StatisticsWidget from "@widgets/StatisticsWidget";
+import ProfitInvestmentWidget from "@widgets/ProfitInvestmentWidget";
 
 // -- components
 import HeroBanner from "@organisms/HeroBanner";
+import Numbers from "@organisms/Numbers";
+import WhyCrappo from "@organisms/WhyCrappo";
 
 const Home = (props) => {
-	const { heroBanner } = props;
+	const { heroBanner, numbers, whyCrappo } = props;
+
+	// parsing data
 	const heroBannerData = JSON.parse(heroBanner.data);
 	const heroBannerError = JSON.parse(heroBanner.error);
+	const numbersData = JSON.parse(numbers.data);
+	const numbersError = JSON.parse(numbers.error);
+	const whyCrappoData = JSON.parse(whyCrappo.data);
+	const whyCrappoError = JSON.parse(whyCrappo.error);
 
+	// set active header hemu
 	const { setMenu } = useStateHeader();
 
 	useState(() => {
@@ -30,13 +41,24 @@ const Home = (props) => {
 	return (
 		<>
 			<Default activeMenu="home">
+				{/* SSR */}
 				<HeroBanner
 					ready={true}
-					data={heroBannerData}
+					data={heroBannerData?.data}
 					error={heroBannerError}
 				/>
-				<NumbersWidget />
-				<WhyCrappoWidget />
+				<Numbers ready={true} data={numbersData?.data} error={numbersError} />
+				<WhyCrappo
+					ready={true}
+					data={whyCrappoData?.data}
+					error={whyCrappoError}
+				/>
+				{/* CSR */}
+				<CalculateWidget />
+				<CryptocurrenciesWidget />
+				<InvestSmartWidget />
+				<StatisticsWidget />
+				<ProfitInvestmentWidget />
 				<SubsribeWidget />
 			</Default>
 		</>

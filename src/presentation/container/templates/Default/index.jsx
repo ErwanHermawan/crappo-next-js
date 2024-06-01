@@ -1,23 +1,26 @@
+"use client";
+
 // //- core
 import { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 
-// -- components
+// -- widgets
 import HeaderWidget from "@widgets/HeaderWidget";
-import Footer from "@organisms/Footer";
+import FooterWidget from "@widgets/FooterWidget";
 
 const Default = (props) => {
-	// const { pathname } = useLocation();
+	const { activeMenu, children } = props;
+	const { pathname } = usePathname();
 
-	// useEffect(() => {
-	// 	window.scrollTo(0, 0);
-	// }, [pathname]);
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
 
 	return (
 		<>
-			<HeaderWidget activeMenu={props.activeMenu} />
-			<main className="main">{props.children}</main>
-			<Footer />
+			<HeaderWidget activeMenu={activeMenu} />
+			<main className="main">{children}</main>
+			<FooterWidget />
 		</>
 	);
 };

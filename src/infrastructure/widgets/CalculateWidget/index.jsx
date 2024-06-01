@@ -1,35 +1,13 @@
-// -- core
-import { useEffect, useState } from "react";
-
-// -- api
-import httpRequest from "@api/httpRequest";
-import ENDPOINT from "@api/endPoint";
+// -- model
+import calculateModel from "@models/calculate";
 
 // -- organisms
-import Calculate from "presentation/component/organisms/Calculate";
+import Calculate from "@organisms/Calculate";
 
 const CalculateWidget = () => {
-	// state
-	const [data, setData] = useState([]);
+	const { ready, data, error } = calculateModel.list();
 
-	// call API
-	const {
-		data: getData,
-		error: getError,
-		ready: getReady,
-	} = httpRequest({
-		url: ENDPOINT.CALCULATE,
-		method: "get",
-	});
-
-	// use effect
-	useEffect(() => {
-		if (getData?.data?.length) {
-			setData(getData?.data);
-		}
-	}, [getData]);
-
-	return <Calculate data={data} error={getError} ready={getReady} />;
+	return <Calculate ready={ready} data={data?.data} error={error} />;
 };
 
 export default CalculateWidget;

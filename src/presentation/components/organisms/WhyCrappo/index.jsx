@@ -5,7 +5,9 @@ import style from "./style.module.scss";
 import Button from "@atoms/Button";
 
 const WhyCrappo = (props) => {
-	if (!props.ready) {
+	const { ready, data, error } = props;
+
+	if (!ready) {
 		return (
 			<div className={style.placeholder}>
 				<div className="container">
@@ -28,7 +30,6 @@ const WhyCrappo = (props) => {
 		);
 	}
 
-	const { data } = props;
 	return (
 		<div className={style.crappo}>
 			<div className={"container"}>

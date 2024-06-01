@@ -93,9 +93,9 @@
 	}
 	&Price {
 		position: absolute;
-		right: 56px;
-		bottom: 64px;
-		height: 88px;
+		right: 0;
+		bottom: 28px;
+		height: 164px;
 		object-fit: contain;
 		@include large {
 			right: 32px;

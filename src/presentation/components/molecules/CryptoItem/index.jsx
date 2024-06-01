@@ -2,7 +2,7 @@
 import style from "./style.module.scss";
 
 // -- atom
-import Button from "presentation/component/atoms/Button";
+import Button from "@atoms/Button";
 
 const CryptoItem = (props) => {
 	return (

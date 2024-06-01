@@ -16,7 +16,7 @@ const Button = (props) => {
 			variantStyle += " " + style.btnIcon;
 			break;
 		case "white":
-			variantStyle += " " + style.btnIcon;
+			variantStyle += " " + style.btnWhite;
 			break;
 		default:
 			variantStyle += " " + style.btnPrimary;

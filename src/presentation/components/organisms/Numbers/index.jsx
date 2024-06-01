@@ -5,7 +5,9 @@ import style from "./style.module.scss";
 import NumbersItem from "@molecules/NumbersItem";
 
 const Numbers = (props) => {
-	if (!props.ready) {
+	const { ready, data, error } = props;
+
+	if (!ready) {
 		return (
 			<div className={style.placeholder}>
 				<div className="container">
@@ -38,22 +40,22 @@ const Numbers = (props) => {
 	}
 
 	// data is error
-	if (props.error) {
+	if (error) {
 		return (
 			<div className={style.error}>
 				<div className="container">
-					<h4 className={style.code}>{props.error.status}</h4>
-					<h4 className={style.message}>{props.error.message}</h4>
+					<h4 className={style.code}>{error.status}</h4>
+					<h4 className={style.message}>{error.message}</h4>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className={style.numbers}>
+		<div className={style.numbers} id="numbers">
 			<div className="container">
 				<div className={style.list}>
-					{props.data.map((val, idx) => {
+					{data.map((val, idx) => {
 						return (
 							<div className={style.item} key={`f-${idx}`}>
 								<NumbersItem {...val} />

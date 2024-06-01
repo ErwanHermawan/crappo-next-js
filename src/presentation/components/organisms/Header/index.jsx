@@ -1,5 +1,5 @@
 // -- core
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -40,7 +40,7 @@ const Header = (props) => {
 	const [height, setHeight] = useState(0);
 
 	// use layout effect
-	useLayoutEffect(() => {
+	useEffect(() => {
 		setHeight(ref.current.offsetHeight);
 	}, []);
 
@@ -92,7 +92,7 @@ const Header = (props) => {
 							href={data?.brand?.to !== undefined ? data?.brand?.to : "/"}
 							className={style.logoLink}
 						>
-							<Image
+							<img
 								src={data?.brand?.logo}
 								alt={data?.brand?.name}
 								className={style.logoImg}
@@ -121,11 +121,13 @@ const Header = (props) => {
 								))}
 							</ul>
 						</div>
+						{/* button */}
 						<div className={style.btn}>
 							{data?.auth_menu?.map((vB, iB) => (
 								<Button key={`hm-${iB}`} href={vB.to} text={vB.text} />
 							))}
 						</div>
+						{/* burger menu */}
 						<button
 							type="button"
 							className={style.burgerMenu}

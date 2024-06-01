@@ -1,31 +1,52 @@
-// -- core
 import { useEffect, useState } from "react";
 
 // -- api
-import httpRequest from "@api/httpRequest";
 import ENDPOINT from "@api/endPoint";
+import httpRequest from "@api/httpRequest";
 
 // -- organisms
-import ProfitInvestment from "presentation/component/organisms/ProfitInvestment";
+import ProfitInvestment from "@organisms/ProfitInvestment";
 
 const ProfitInvestmentWidget = () => {
-	// state
-	const [data, setData] = useState([]);
+	const [callProfitData, setCallProfitData] = useState(false);
+	const [profitData, setProfitData] = useState(null);
 
-	// call API
-	const { data: getData } = httpRequest({
-		url: ENDPOINT.PROFIT,
-		method: "get",
-	});
+	const handleScroll = () => {
+		const scrollTop =
+			window.pageYOffset ||
+			document.documentElement.scrollTop ||
+			document.body.scrollTop;
+		const calculate = document.getElementById("calculate");
+		const startScroll = calculate.offsetTop + calculate.clientHeight / 2;
 
-	// use effect
-	useEffect(() => {
-		if (getData?.data) {
-			setData(getData?.data);
+		if (scrollTop > startScroll && !callProfitData) {
+			setCallProfitData(true);
 		}
-	}, [getData]);
+	};
 
-	return <ProfitInvestment data={data} />;
+	const handleprofitData = async () => {
+		const { data, error } = await httpRequest({
+			method: "get",
+			url: ENDPOINT.PROFIT,
+		});
+		setProfitData(data.data);
+	};
+
+	useEffect(() => {
+		if (callProfitData) {
+			handleprofitData();
+		}
+	}, [callProfitData]);
+
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		// Cleanup event listener on component unmount
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	return <ProfitInvestment ready={true} data={profitData} />;
 };
 
 export default ProfitInvestmentWidget;

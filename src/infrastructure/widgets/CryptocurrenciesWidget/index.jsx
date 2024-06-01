@@ -1,8 +1,8 @@
 // -- model
-import cryptoCurrenciesModel from "core/models/cryptoCurrencies";
+import cryptoCurrenciesModel from "@models/cryptoCurrencies";
 
 // -- organisms
-import Cryptocurrencies from "presentation/component/organisms/Cryptocurrencies";
+import Cryptocurrencies from "@organisms/Cryptocurrencies";
 
 const CryptocurrenciesWidget = () => {
 	const { ready, data, error } = cryptoCurrenciesModel.list();

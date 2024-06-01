@@ -18,11 +18,7 @@ const HeroBanner = (props) => {
 	const [showSingle, setShowSingle] = useState(false);
 
 	useEffect(() => {
-		let timer = setTimeout(() => setShowSingle(true), 500);
-
-		return () => {
-			clearTimeout(timer);
-		};
+		setShowSingle(true);
 	}, []);
 
 	const settings = {
@@ -77,7 +73,7 @@ const HeroBanner = (props) => {
 
 	// set single banner
 	if (ready && error !== null) {
-		if (data.data.length === 1) {
+		if (data.length === 1) {
 			if (showSingle) {
 				className += " banner-single";
 			}
@@ -85,9 +81,9 @@ const HeroBanner = (props) => {
 	}
 
 	return (
-		<div className={className}>
-			{data.data.length === 1 ? (
-				data.data.map((val, idx) => {
+		<div className={className} id="heroBanner">
+			{data.length === 1 ? (
+				data.map((val, idx) => {
 					return (
 						<div className={style.item} key={`hb-${idx}`}>
 							<div className={style.middleAlign}>
@@ -101,7 +97,7 @@ const HeroBanner = (props) => {
 			) : (
 				<Slider {...settings}>
 					{showSingle &&
-						data.data.map((val, idx) => {
+						data.map((val, idx) => {
 							return (
 								<div className={style.item} key={`hb-${idx}`}>
 									<div className={style.middleAlign}>
