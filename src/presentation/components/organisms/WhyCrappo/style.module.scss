@@ -1,0 +1,118 @@
+@import "core/styles/_assets.scss";
+
+@mixin padding {
+	padding: 60px 0;
+	overflow: hidden;
+	background-color: color(primary);
+	@include large {
+		padding: 56px 0;
+	}
+	@include medium {
+		padding: 48px 0;
+	}
+	@include small {
+		padding: 40px 0;
+	}
+	@include x-small {
+		padding: 32px 0;
+	}
+}
+
+.crappo {
+	@include padding;
+	@include bg-img("bg/crappo-bg.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.inner {
+	display: flex;
+	align-items: center;
+}
+.image {
+	width: 50%;
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+.text {
+	width: 50%;
+	padding-left: 120px;
+}
+.title {
+	@include font-size(h2);
+	font-weight: fw(bold);
+	margin-bottom: 24px;
+	@include large {
+		@include font-size(h3);
+	}
+	@include medium {
+		@include font-size(h3m);
+		margin-bottom: 16px;
+	}
+}
+.description {
+	max-width: 400px;
+	@include font-size(h6);
+	font-weight: fw(regular);
+	color: color(grey, 3);
+	margin-bottom: 32px;
+	@include medium {
+		margin-bottom: 24px;
+	}
+	@include small {
+		max-width: initial;
+	}
+}
+
+.placeholder {
+	@include padding;
+	.inner {
+		display: flex;
+		align-items: center;
+	}
+	.img {
+		width: 50%;
+		height: 354px;
+		background-color: rgba(color(white), 0.1);
+		border-radius: 4px;
+		@include skeleton;
+	}
+	.text {
+		width: 50%;
+		padding-left: 120px;
+	}
+	.title {
+		width: 80%;
+		margin-bottom: 24px;
+		&Bar {
+			height: 56px;
+			background-color: rgba(color(white), 0.1);
+			border-radius: 4px;
+			@include skeleton;
+		}
+	}
+	.desc {
+		width: 100%;
+		margin-bottom: 32px;
+		&Bar {
+			height: 32px;
+			background-color: rgba(color(white), 0.1);
+			margin-bottom: 12px;
+			border-radius: 4px;
+			@include skeleton;
+			&:last-child {
+				width: 60%;
+				margin-bottom: 0;
+			}
+		}
+	}
+	.button {
+		width: 180px;
+		height: 60px;
+		background-color: rgba(color(white), 0.1);
+		border-radius: 30px;
+		@include skeleton;
+	}
+}

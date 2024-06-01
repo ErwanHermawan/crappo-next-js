@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"paths": {
+			//-- CORE
+			"@assets/*": ["core/assets/*"],
+			"@configs/*": ["core/configs/*"],
+			"@hooks/*": ["core/hooks/*"],
+			"@models/*": ["core/models/*"],
+			"@persists/*": ["core/persists/*"],
+			"@states/*": ["core/states/*"],
+			"@styles/*": ["core/styles/*"],
+			"@utils/*": ["core/utils/*"],
+
+			//-- INFRASTRUCTURE
+			"@api/*": ["infrastructure/api/*"],
+			"@widgets/*": ["infrastructure/widgets/*"],
+
+			//-- PRESENTATION COMPONENTS
+			"@atoms/*": ["presentation/components/atoms/*"],
+			"@molecules/*": ["presentation/components/molecules/*"],
+			"@organisms/*": ["presentation/components/organisms/*"],
+
+			//-- PRESENTATION CONTAINER
+			"@templates/*": ["presentation/container/templates/*"],
+			"@modules/*": ["presentation/container/modules/*"]
+		}
+	}
+}
