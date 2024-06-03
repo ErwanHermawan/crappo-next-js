@@ -56,9 +56,11 @@ const Home = (props) => {
 				{/* CSR */}
 				<CalculateWidget />
 				<CryptocurrenciesWidget />
+				{/* Event Call */}
 				<InvestSmartWidget />
 				<StatisticsWidget />
 				<ProfitInvestmentWidget />
+
 				<SubsribeWidget />
 			</Default>
 		</>

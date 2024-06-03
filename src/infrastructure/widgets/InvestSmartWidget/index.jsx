@@ -34,7 +34,6 @@ const InvestSmartWidget = () => {
 
 	useEffect(() => {
 		if (callMarketData) {
-			console.log(1);
 			handleMarketData();
 		}
 	}, [callMarketData]);
