@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import WindowResize from "@utils/windowResize";
 
 // -- states
 import useStateHeader from "core/states/header";
@@ -29,11 +30,13 @@ const Header = (props) => {
 		setShowNavigation(!showNavigation);
 	};
 
-	// if (showNavigation) {
-	// 	document.querySelector("body").classList.add("show-menu");
-	// } else {
-	// 	document.querySelector("body").classList.remove("show-menu");
-	// }
+	useEffect(() => {
+		if (showNavigation) {
+			document.querySelector("body").classList.add("show-menu");
+		} else {
+			document.querySelector("body").classList.remove("show-menu");
+		}
+	}, [showNavigation]);
 
 	// Sticky Menu Area
 	const ref = useRef(null);
@@ -83,64 +86,75 @@ const Header = (props) => {
 	};
 
 	return (
-		<header className={style.header}>
-			<div className="container">
-				<div className={style.inner} ref={ref}>
-					{/* Logo */}
-					<div className={style.logo}>
-						<Link
-							href={data?.brand?.to !== undefined ? data?.brand?.to : "/"}
-							className={style.logoLink}
-						>
-							<img
-								src={data?.brand?.logo}
-								alt={data?.brand?.name}
-								className={style.logoImg}
-								height={40}
-								width={132}
-							/>
-						</Link>
-					</div>
-					{/* Menu */}
-					<div className={style.nav}>
-						<div className={style.menu}>
-							<ul className={style.list}>
-								{data?.main_menu?.map((val, idx) => (
-									<li className={style.item} key={`hm-${idx}`}>
-										<Link
-											href={val.to}
-											className={
-												menu === val.text.toLowerCase()
-													? `${style.link} ${style.active}`
-													: style.link
-											}
-										>
-											{val.text}
-										</Link>
-									</li>
+		<>
+			<WindowResize />
+			<header className={style.header}>
+				<div className="container">
+					<div className={style.inner} ref={ref}>
+						{/* Logo */}
+						<div className={style.logo}>
+							<Link
+								href={data?.brand?.to !== undefined ? data?.brand?.to : "/"}
+								className={style.logoLink}
+							>
+								<img
+									src={
+										data?.brand?.logo !== undefined
+											? data?.brand?.logo
+											: "/logo"
+									}
+									alt={
+										data?.brand?.name !== undefined
+											? data?.brand?.name
+											: "Crappo logo"
+									}
+									className={style.logoImg}
+									height={40}
+									width={132}
+								/>
+							</Link>
+						</div>
+						{/* Menu */}
+						<div className={style.nav}>
+							<div className={style.menu}>
+								<ul className={style.list}>
+									{data?.main_menu?.map((val, idx) => (
+										<li className={style.item} key={`hm-${idx}`}>
+											<Link
+												href={val.to}
+												className={
+													menu === val.text.toLowerCase()
+														? `${style.link} ${style.active}`
+														: style.link
+												}
+											>
+												{val.text}
+											</Link>
+										</li>
+									))}
+								</ul>
+							</div>
+							{/* button */}
+							<div className={style.btn}>
+								{data?.auth_menu?.map((vB, iB) => (
+									<Button key={`hm-${iB}`} href={vB.to} text={vB.text} />
 								))}
-							</ul>
+							</div>
+							{/* burger menu */}
+							<button
+								type="button"
+								className={style.burgerMenu}
+								onClick={handleToggleNavigation}
+							>
+								<span className={style.burgerMenuBar}></span>
+								<span className={style.burgerMenuBar}></span>
+								<span className={style.burgerMenuBar}></span>
+							</button>
 						</div>
-						{/* button */}
-						<div className={style.btn}>
-							{data?.auth_menu?.map((vB, iB) => (
-								<Button key={`hm-${iB}`} href={vB.to} text={vB.text} />
-							))}
-						</div>
-						{/* burger menu */}
-						<button
-							type="button"
-							className={style.burgerMenu}
-							onClick={handleToggleNavigation}
-						>
-							<span className={style.burgerMenuBar}></span>
-							<span className={style.burgerMenuBar}></span>
-							<span className={style.burgerMenuBar}></span>
-						</button>
 					</div>
 				</div>
-			</div>
-		</header>
+			</header>
+		</>
 	);
 };
 

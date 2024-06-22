@@ -1,5 +1,3 @@
-"use client";
-
 // //- core
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
